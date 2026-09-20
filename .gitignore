@@ -1,0 +1,6 @@
+
+target/
+*.class
+.DS_Store
+LenguajesProyecto-1.0-SNAPSHOT.jar
+.vscode/
