@@ -26,7 +26,7 @@ public class MenuDePausa extends javax.swing.JDialog {
         setUndecorated(true);
 
         setBackground(new Color(0, 0, 0, 0));
-
+        
         initComponents();
         ((JPanel) getContentPane()).setOpaque(false);
         getContentPane().setBackground(new Color(0, 0, 0, 0));

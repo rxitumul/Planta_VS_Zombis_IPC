@@ -29,10 +29,12 @@ public class Jardin extends javax.swing.JFrame {
     /**
      * Creates new form Jardin
      */
-    public Jardin() {
+    public Jardin(int cerrebros,int duracion) {
         initComponents();
-        setSize(1000,900);
-        contadorDeCerebros.setText("10000|");
+        setSize(1000, 900);
+        contadorDeCerebros.setText(String.valueOf(cerrebros));
+        contadorTiempo.setText(String.valueOf(duracion));
+        cementerio.setSize(23,274);
         cerebrosObtenidos.setIcon(setImagenes(23, 23, RUTA_CEREBRO_ICONO));
         pausaMenu.setIcon(setImagenes(23, 23, RUTA_PAUSA_BOTON));
         zombi.setIcon(setImagenes(91, 56, RUTA_ZOMBI));
@@ -59,11 +61,29 @@ public class Jardin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cementerio = new javax.swing.JPanel();
-        casa = new javax.swing.JPanel();
+        cementerio = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /cementerio.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        jLabel2 = new javax.swing.JLabel();
+        casa = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /casa.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         zombiDeportista = new javax.swing.JLabel();
         zombi = new javax.swing.JLabel();
         zombiCaracono = new javax.swing.JLabel();
@@ -85,6 +105,30 @@ public class Jardin extends javax.swing.JFrame {
         pausaMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel2.setText("jLabel2");
+
+        javax.swing.GroupLayout cementerioLayout = new javax.swing.GroupLayout(cementerio);
+        cementerio.setLayout(cementerioLayout);
+        cementerioLayout.setHorizontalGroup(
+            cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cementerioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        cementerioLayout.setVerticalGroup(
+            cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cementerioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
         getContentPane().add(cementerio, java.awt.BorderLayout.LINE_START);
 
         casa.setLayout(new java.awt.GridLayout(0, 1, 1, 0));
@@ -180,7 +224,7 @@ public class Jardin extends javax.swing.JFrame {
     private void pausaMenuMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_pausaMenuMouseClicked
         MenuDePausa pausa = new MenuDePausa(this, true);
         pausa.setVisible(true);
-    
+
     }// GEN-LAST:event_pausaMenuMouseClicked
 
     private void zombisteinMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_zombisteinMouseClicked
@@ -211,31 +255,6 @@ public class Jardin extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Jardin().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar accionesBarra;
@@ -245,6 +264,7 @@ public class Jardin extends javax.swing.JFrame {
     private javax.swing.JLabel contadorDeCerebros;
     private javax.swing.JLabel contadorTiempo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
