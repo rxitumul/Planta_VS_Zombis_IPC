@@ -4,16 +4,20 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+
+import java.awt.*;
 
 import com.mycompany.plantasvzzombis.BackEnd.MetodosStatic;
+import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
 
 /**
  *
  * @author ricardocastillo
  */
-public class CreacionDeCuenta extends javax.swing.JDialog {
+public class CreacionDeCuenta extends javax.swing.JDialog implements ImagenesTextos{
     private boolean valido = false;
+    private final static String RUTA_DE_BOTON="/com/ricardo/Menus /Botones /Boton_CrearCuenta_Segundo.png";
     private String nombreUsuario;
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(CreacionDeCuenta.class.getName());
@@ -24,6 +28,11 @@ public class CreacionDeCuenta extends javax.swing.JDialog {
     public CreacionDeCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fondo.setSize(398, 408);
+        fondo.setOpaque(false);
+        fondo.setBackground(new Color(0, 0, 0, 0));
+        fondo.setDoubleBuffered(true);
+        creadorDeCuentaP.setIcon(setImagenes(150, 60, RUTA_DE_BOTON));
     }
 
     /**
@@ -33,55 +42,110 @@ public class CreacionDeCuenta extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        fondo = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /MensajeDeCreacion.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        FondoContenedor = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Relleno.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         nombreDeCuenta = new javax.swing.JTextField();
-        crearCuenta = new javax.swing.JButton();
+        creadorDeCuentaP = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Instruciones ");
+        fondo.setPreferredSize(new java.awt.Dimension(598, 608));
+
+        FondoContenedor.setOpaque(false);
 
         nombreDeCuenta.setText("Nombre Cuenta");
+        nombreDeCuenta.setOpaque(false);
+        nombreDeCuenta.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // Margen interno para que no pegue con las orillas de piedra
+        nombreDeCuenta.setForeground(new Color(240, 210, 120)); // Color de texto estilo PvZ (dorado)
+        nombreDeCuenta.setCaretColor(Color.WHITE); // Cursor blanco
+        nombreDeCuenta.setFont(new Font("Serif", Font.BOLD, 16));
 
-        crearCuenta.setText("Crear cuenta");
-        crearCuenta.addActionListener(this::crearCuentaActionPerformed);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(crearCuenta)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombreDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout FondoContenedorLayout = new javax.swing.GroupLayout(FondoContenedor);
+        FondoContenedor.setLayout(FondoContenedorLayout);
+        FondoContenedorLayout.setHorizontalGroup(
+            FondoContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FondoContenedorLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(nombreDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        FondoContenedorLayout.setVerticalGroup(
+            FondoContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FondoContenedorLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(nombreDeCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(crearCuenta)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        creadorDeCuentaP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                creadorDeCuentaPMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
+        fondo.setLayout(fondoLayout);
+        fondoLayout.setHorizontalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(creadorDeCuentaP, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(FondoContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+        fondoLayout.setVerticalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap(450, Short.MAX_VALUE)
+                .addComponent(FondoContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(creadorDeCuentaP, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
+        );
+
+        getContentPane().add(fondo, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void creadorDeCuentaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_creadorDeCuentaPMouseClicked
+        nombreUsuario = nombreDeCuenta.getText();
+        nombreUsuario = nombreUsuario.trim();
+
+        if (nombreUsuario.length() < 12 && nombreUsuario.length() > 0) {
+            valido = MetodosStatic.esNombreValido(nombreUsuario);
+        }
+        if (!valido) {
+            JOptionPane.showMessageDialog(null, "Nombre no valido", "Error en el nombre", JOptionPane.ERROR_MESSAGE);
+        } else {
+            this.dispose();
+        }    }//GEN-LAST:event_creadorDeCuentaPMouseClicked
+
     private void crearCuentaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_crearCuentaActionPerformed
-         nombreUsuario = nombreDeCuenta.getText();
+        nombreUsuario = nombreDeCuenta.getText();
         nombreUsuario = nombreUsuario.trim();
 
         if (nombreUsuario.length() < 12 && nombreUsuario.length() > 0) {
@@ -96,7 +160,9 @@ public class CreacionDeCuenta extends javax.swing.JDialog {
 
     public boolean getValidacionDeCreacionDeCuenta() {
         return valido;
-    }public String getNombreCuenta() {
+    }
+
+    public String getNombreCuenta() {
         return nombreUsuario;
     }
 
@@ -105,9 +171,9 @@ public class CreacionDeCuenta extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton crearCuenta;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel FondoContenedor;
+    private javax.swing.JLabel creadorDeCuentaP;
+    private javax.swing.JPanel fondo;
     private javax.swing.JTextField nombreDeCuenta;
     // End of variables declaration//GEN-END:variables
 }

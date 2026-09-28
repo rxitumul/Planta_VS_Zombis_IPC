@@ -44,11 +44,20 @@ public class CargadorDeArchivo {
             this.duracionSegundos = extraerEntero(texto, "duracionSegundos");
             this.cerebrosIniciales = extraerEntero(texto, "cerebrosIniciales");
             this.jardin = procesarJardin(texto);
-            return true;
         } catch (Exception e) {
             System.err.println("Error al procesar el contenido del JSON: " + e.getMessage());
             return false;
         }
+
+        for (String[] strings : jardin) {
+            for (String string : strings) {
+                if (null == string) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
 
     private int extraerEntero(String texto, String clave) {

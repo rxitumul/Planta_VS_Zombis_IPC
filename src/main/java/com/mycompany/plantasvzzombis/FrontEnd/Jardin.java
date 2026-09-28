@@ -4,11 +4,13 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd;
 
-import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import com.mycompany.plantasvzzombis.FrontEnd.JDialojs.MenuDePausa;
-
-import java.awt.*;
 
 /**
  *
@@ -25,16 +27,21 @@ public class Jardin extends javax.swing.JFrame {
     private static final String RUTA_ZOMBISTEIN = "/com/ricardo/IndicadoresDeCosto/Zombistein.png";
     private static final String RUTA_CEREBRO_ICONO = "/com/ricardo/Variaciones/Cerebro.png";
     private static final String RUTA_PAUSA_BOTON = "/com/ricardo/Variaciones/BotonDePausa.png";
+    private int[][][] cordenadas;
 
     /**
      * Creates new form Jardin
      */
-    public Jardin(int cerrebros,int duracion) {
+    public Jardin(int cerrebros, int duracion, String[][] jardin) {
         initComponents();
         setSize(1000, 900);
         contadorDeCerebros.setText(String.valueOf(cerrebros));
         contadorTiempo.setText(String.valueOf(duracion));
-        cementerio.setSize(23,274);
+        fondoPanelFondo(100000, 10000000);
+        generadorDeMapaCords(jardin);
+        jardinPadre.revalidate();
+        jardinPadre.repaint();
+        cementerio.setSize(23, 274);
         cerebrosObtenidos.setIcon(setImagenes(23, 23, RUTA_CEREBRO_ICONO));
         pausaMenu.setIcon(setImagenes(23, 23, RUTA_PAUSA_BOTON));
         zombi.setIcon(setImagenes(91, 56, RUTA_ZOMBI));
@@ -43,6 +50,8 @@ public class Jardin extends javax.swing.JFrame {
         zombiDeportista.setIcon(setImagenes(91, 56, RUTA_ZOMBI_DEPORTISTA));
         zombiSaltadorDeGarrocha.setIcon(setImagenes(91, 56, RUTA_ZOMBI_SALTADOR_GARROCHA));
         zombistein.setIcon(setImagenes(91, 56, RUTA_ZOMBISTEIN));
+        revalidate();
+        repaint();
     }
 
     private ImageIcon setImagenes(int dimencionW, int dimencionH, String ruta) {
@@ -50,6 +59,173 @@ public class Jardin extends javax.swing.JFrame {
         Image imagenRedimencion = tarjetaDeZombi.getImage().getScaledInstance(dimencionW, dimencionH,
                 Image.SCALE_SMOOTH);
         return new ImageIcon(imagenRedimencion);
+    }
+
+    private ImageIcon voltearGifHorizontal(ImageIcon iconoOriginal) {
+        int ancho = iconoOriginal.getIconWidth();
+        int alto = iconoOriginal.getIconHeight();
+
+        // Crear una imagen temporal en memoria
+        BufferedImage imgBuffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = imgBuffer.createGraphics();
+
+        // Dibuja la imagen invertida horizontalmente (-ancho en X, ancho de escala
+        // negativo)
+        g2d.drawImage(iconoOriginal.getImage(), ancho, 0, 0, alto, 0, 0, ancho, alto, null);
+        g2d.dispose();
+
+        return new ImageIcon(imgBuffer);
+    }
+
+    private void fondoPanelFondo(int ancho, int alto) {
+
+        JPanel fondo = new JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Fondo.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        fondo.setSize(ancho, alto);
+        jardinLayer.add(fondo, Integer.valueOf(0));
+
+    }
+
+    private void generadorDeMapa(String[][] mapa) {
+        int[][][] cordenadas = new int[mapa.length][mapa[0].length][2];
+        JPanel panelJardin = new JPanel();
+
+        int columna = mapa[0].length;
+        int fila = mapa.length;
+        int anchoTotal = columna * 80;
+        int altoTotal = fila * 100;
+
+        panelJardin.setPreferredSize(new Dimension(anchoTotal, altoTotal));
+        panelJardin.setLayout(new GridLayout(fila, columna));
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < columna; j++) {
+
+                JPanel panelJardinCasilla = null;
+                if ((i + j) % 2 == 0) {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaA.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                } else {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+                            // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                            // proyecto)
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaB.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                }
+                panelJardinCasilla.setPreferredSize(new Dimension(80, 100));
+                panelJardinCasilla.setSize(80, 100);
+                panelJardin.add(panelJardinCasilla);
+                panelJardin.doLayout();
+                cordenadas[i][j][0] = panelJardinCasilla.getX();
+                cordenadas[i][j][1] = panelJardinCasilla.getY();
+            }
+        }
+        panelJardin.revalidate();
+        panelJardin.repaint();
+        Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
+        jardinLayer.setPreferredSize(dimDinamica);
+        panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
+        jardinLayer.add(panelJardin, Integer.valueOf(1));
+        jardinLayer.revalidate();
+        jardinLayer.repaint();
+
+        for (int[][] is : cordenadas) {
+            for (int[] is2 : is) {
+
+                System.out.println(is2[0] + " " + is2[1]);
+            }
+        }
+    }
+
+    private void generadorDeMapaCords(String[][] mapa) {
+        cordenadas = new int[mapa.length][mapa[0].length][2];
+        JPanel panelJardin = new JPanel();
+
+        int columna = mapa[0].length;
+        int fila = mapa.length;
+        int anchoTotal = columna * 80;
+        int altoTotal = fila * 100;
+        int y = 0;
+
+        panelJardin.setPreferredSize(new Dimension(anchoTotal, altoTotal));
+        panelJardin.setLayout(null);
+        Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
+        jardinLayer.setPreferredSize(dimDinamica);
+        panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
+        jardinLayer.add(panelJardin, Integer.valueOf(1));
+        for (int i = 0; i < fila; i++) {
+            int x = 0;
+            for (int j = 0; j < columna; j++) {
+
+                JPanel panelJardinCasilla = null;
+                if ((i + j) % 2 == 0) {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaA.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                } else {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+                            // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                            // proyecto)
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaB.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                }
+
+                panelJardin.add(panelJardinCasilla);
+                panelJardinCasilla.setBounds(x, y, 80, 100);
+                // panelJardinCasilla.setPreferredSize(new Dimension(80, 100));
+                cordenadas[i][j][0] = x;
+                cordenadas[i][j][1] = y;
+                x = 80 + x;
+                panelJardin.doLayout();
+            }
+            y = 100 + y;
+        }
+        panelJardin.revalidate();
+        panelJardin.repaint();
+        jardinLayer.revalidate();
+        jardinLayer.repaint();
+
+        for (int[][] is : cordenadas) {
+            for (int[] is2 : is) {
+
+                System.out.println(is2[0] + " " + is2[1]);
+            }
+        }
     }
 
     /**
@@ -62,24 +238,29 @@ public class Jardin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cementerio = new javax.swing.JPanel(){
+        cementerio = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /cementerio.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
         };
         jLabel2 = new javax.swing.JLabel();
-        casa = new javax.swing.JPanel(){
+        casa = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /casa.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -90,10 +271,28 @@ public class Jardin extends javax.swing.JFrame {
         zombiSaltadorDeGarrocha = new javax.swing.JLabel();
         zombiBailon = new javax.swing.JLabel();
         zombistein = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        accionesBarra = new javax.swing.JToolBar();
+        jardinPadre = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Fondo.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        jardinScrol = new javax.swing.JScrollPane();
+        jardinLayer = new javax.swing.JLayeredPane();
+        accionesBarra = new javax.swing.JToolBar() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /FondoMadera.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         cerebrosObtenidos = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         contadorDeCerebros = new javax.swing.JLabel();
@@ -106,28 +305,29 @@ public class Jardin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("jLabel2");
-
         javax.swing.GroupLayout cementerioLayout = new javax.swing.GroupLayout(cementerio);
         cementerio.setLayout(cementerioLayout);
         cementerioLayout.setHorizontalGroup(
-            cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(cementerioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 88, Short.MAX_VALUE)
+                        .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        cementerioLayout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        Short.MAX_VALUE))));
         cementerioLayout.setVerticalGroup(
-            cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-            .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(cementerioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+                cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 274, Short.MAX_VALUE)
+                        .addGroup(cementerioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        cementerioLayout.createSequentialGroup()
+                                                .addContainerGap(88, Short.MAX_VALUE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(137, Short.MAX_VALUE))));
 
         getContentPane().add(cementerio, java.awt.BorderLayout.LINE_START);
 
@@ -177,14 +377,20 @@ public class Jardin extends javax.swing.JFrame {
 
         getContentPane().add(casa, java.awt.BorderLayout.LINE_END);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        jardinPadre.setBackground(new java.awt.Color(102, 0, 0));
+        jardinPadre.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setViewportView(jLayeredPane1);
+        jardinScrol.setBackground(new java.awt.Color(102, 102, 0));
 
-        jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jardinLayer.setBackground(new java.awt.Color(255, 51, 204));
+        jardinScrol.setViewportView(jardinLayer);
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+        jardinPadre.add(jardinScrol, java.awt.BorderLayout.CENTER);
 
+        getContentPane().add(jardinPadre, java.awt.BorderLayout.CENTER);
+
+        accionesBarra.setOpaque(false);
+        accionesBarra.setFloatable(false);
         accionesBarra.setRollover(true);
         accionesBarra.add(cerebrosObtenidos);
 
@@ -220,6 +426,10 @@ public class Jardin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public int[][][] getCordenadas() {
+        return cordenadas;
+    }
 
     private void pausaMenuMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_pausaMenuMouseClicked
         MenuDePausa pausa = new MenuDePausa(this, true);
@@ -265,13 +475,13 @@ public class Jardin extends javax.swing.JFrame {
     private javax.swing.JLabel contadorTiempo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JLayeredPane jardinLayer;
+    private javax.swing.JPanel jardinPadre;
+    private javax.swing.JScrollPane jardinScrol;
     private javax.swing.JLabel pausaMenu;
     private javax.swing.JLabel zombi;
     private javax.swing.JLabel zombiBailon;

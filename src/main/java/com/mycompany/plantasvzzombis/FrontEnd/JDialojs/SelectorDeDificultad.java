@@ -4,16 +4,25 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
-import javax.swing.ButtonGroup;
+import java.awt.Image;
+
+import javax.swing.*;
+
+import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
 
 /**
  *
  * @author ricardocastillo
  */
-public class SelectorDeDificultad extends javax.swing.JDialog {
+public class SelectorDeDificultad extends javax.swing.JDialog implements ImagenesTextos {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(SelectorDeDificultad.class.getName());
+    private final static String RUTA_DE_BOTON_DIFICIL="/com/ricardo/Menus /Botones /Boton_Dificil.png";
+    private final static String RUTA_DE_BOTON_NORMAL="/com/ricardo/Menus /Botones /Boton_Normal.png";
+    private final static String RUTA_DE_BOTON_FACIL="/com/ricardo/Menus /Botones /boton_Facil.png";
+    private final static String RUTA_DE_BOTON_ACEPTAR="/com/ricardo/Menus /Botones /Boton_Aceptar.png";
+
 
     /**
      * Creates new form SelectorDeDificultad
@@ -29,10 +38,6 @@ public class SelectorDeDificultad extends javax.swing.JDialog {
     private void dificilActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_dificilActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_dificilActionPerformed
-
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-    }// GEN-LAST:event_jButton1ActionPerformed
 
     public SelectorDeDificultad(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,63 +56,94 @@ public class SelectorDeDificultad extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fondo = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Dificultades.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         facil = new javax.swing.JToggleButton();
         medio = new javax.swing.JToggleButton();
         dificil = new javax.swing.JToggleButton();
-        aceptar = new javax.swing.JButton();
+        aceptarBoton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(577, 594));
+        setMinimumSize(new java.awt.Dimension(577, 594));
+        setPreferredSize(new java.awt.Dimension(577, 594));
+        setResizable(false);
 
-        facil.setText("Facil");
+        fondo.setPreferredSize(new java.awt.Dimension(577, 594));
+
+        facil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Facil.png"))); // NOI18N
+        facil.setSelectedIcon(new ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Facil_Selecionado.png")));
         facil.addActionListener(this::facilActionPerformed);
 
-        medio.setText("Medio");
+        medio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Normal.png"))); // NOI18N
+        medio.setSelectedIcon(new ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Normal_Selecionado.png")));
         medio.addActionListener(this::medioActionPerformed);
 
-        dificil.setText("Dificil");
+        dificil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Dificil.png"))); // NOI18N
+        dificil.setSelectedIcon(new ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Dificil_Selecionado.png")));
         dificil.addActionListener(this::dificilActionPerformed);
 
-        aceptar.setText("Aceptar");
-        aceptar.addActionListener(this::aceptarActionPerformed);
+        aceptarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Aceptar.png"))); // NOI18N
+        aceptarBoton.addActionListener(this::aceptarBotonActionPerformed);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(facil)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(medio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(aceptar)
-                                        .addComponent(dificil))
-                                .addContainerGap(21, Short.MAX_VALUE)));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(facil)
-                                        .addComponent(medio)
-                                        .addComponent(dificil))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(aceptar)
-                                .addContainerGap(33, Short.MAX_VALUE)));
+        javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
+        fondo.setLayout(fondoLayout);
+        fondoLayout.setHorizontalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aceptarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dificil, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medio, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(facil, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(346, Short.MAX_VALUE))
+        );
+        fondoLayout.setVerticalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addComponent(facil, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(medio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(dificil, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(aceptarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
+        getContentPane().add(fondo, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void aceptarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBotonActionPerformed
+        // TODO add your handling code here:
+         this.dispose();   
+    }//GEN-LAST:event_aceptarBotonActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptar;
+    private javax.swing.JButton aceptarBoton;
     private javax.swing.JToggleButton dificil;
     private javax.swing.JToggleButton facil;
+    private javax.swing.JPanel fondo;
     private javax.swing.JToggleButton medio;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,16 +7,20 @@ package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
+
 import java.awt.*;
 
 /**
  *
  * @author ricardocastillo
  */
-public class MenuDePausa extends javax.swing.JDialog {
+public class MenuDePausa extends javax.swing.JDialog implements ImagenesTextos{
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(MenuDePausa.class.getName());
+    private final static String RUTA_DE_BOTON_SAILIR="/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png";
+    private final static String RUTA_DE_BOTON_CONTINUAR="/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png";
 
     /**
      * Creates new form MenuDepausa
@@ -37,8 +41,9 @@ public class MenuDePausa extends javax.swing.JDialog {
         fondo.setDoubleBuffered(true);
 
         setOpacity(1.0f);
-
         setLocationRelativeTo(null);
+        salirYGuardar.setIcon(setImagenes(122, 25, RUTA_DE_BOTON_SAILIR));
+        continuar.setIcon(setImagenes(122, 25, RUTA_DE_BOTON_CONTINUAR));
     }
 
     /**
@@ -49,15 +54,14 @@ public class MenuDePausa extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fondo = new javax.swing.JPanel() {
+        fondo = new javax.swing.JPanel(){
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
-                // proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /pause_menu.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -66,12 +70,11 @@ public class MenuDePausa extends javax.swing.JDialog {
         continuar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 51, 255));
+        setBackground(new java.awt.Color(0, 0, 0));
         setUndecorated(true);
 
         fondo.setBackground(new java.awt.Color(0, 204, 0));
 
-        salirYGuardar.setText("Salir Y guardar");
         salirYGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 salirYGuardarMouseClicked(evt);
@@ -79,7 +82,6 @@ public class MenuDePausa extends javax.swing.JDialog {
         });
 
         continuar.setBackground(new java.awt.Color(255, 255, 255));
-        continuar.setText("Continuar");
         continuar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 continuarMouseClicked(evt);
@@ -89,22 +91,23 @@ public class MenuDePausa extends javax.swing.JDialog {
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
-                fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(fondoLayout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(salirYGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100,
-                                        Short.MAX_VALUE)
-                                .addComponent(continuar)
-                                .addGap(93, 93, 93)));
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(salirYGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
+                .addComponent(continuar)
+                .addGap(93, 93, 93))
+        );
         fondoLayout.setVerticalGroup(
-                fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(fondoLayout.createSequentialGroup()
-                                .addContainerGap(253, Short.MAX_VALUE)
-                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(salirYGuardar)
-                                        .addComponent(continuar))
-                                .addGap(30, 30, 30)));
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addContainerGap(270, Short.MAX_VALUE)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salirYGuardar)
+                    .addComponent(continuar))
+                .addGap(30, 30, 30))
+        );
 
         getContentPane().add(fondo, java.awt.BorderLayout.CENTER);
 
