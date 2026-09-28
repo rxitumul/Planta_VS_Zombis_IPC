@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import com.mycompany.plantasvzzombis.BackEnd.ConstructoresDeJardin.ConstructorDePlantas;
 import com.mycompany.plantasvzzombis.FrontEnd.JDialojs.MenuDePausa;
 
 /**
@@ -18,7 +19,6 @@ import com.mycompany.plantasvzzombis.FrontEnd.JDialojs.MenuDePausa;
  */
 public class Jardin extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Jardin.class.getName());
     private static final String RUTA_ZOMBI = "/com/ricardo/IndicadoresDeCosto/Zombie.png";
     private static final String RUTA_ZOMBI_BAILON = "/com/ricardo/IndicadoresDeCosto/ZombiBailónVersionMichel.png";
     private static final String RUTA_ZOMBI_CARACONO = "/com/ricardo/IndicadoresDeCosto/ZombiCaracono.png";
@@ -27,7 +27,9 @@ public class Jardin extends javax.swing.JFrame {
     private static final String RUTA_ZOMBISTEIN = "/com/ricardo/IndicadoresDeCosto/Zombistein.png";
     private static final String RUTA_CEREBRO_ICONO = "/com/ricardo/Variaciones/Cerebro.png";
     private static final String RUTA_PAUSA_BOTON = "/com/ricardo/Variaciones/BotonDePausa.png";
+
     private int[][][] cordenadas;
+    private JPanel mobimiento;
 
     /**
      * Creates new form Jardin
@@ -61,7 +63,7 @@ public class Jardin extends javax.swing.JFrame {
         return new ImageIcon(imagenRedimencion);
     }
 
-    private ImageIcon voltearGifHorizontal(ImageIcon iconoOriginal) {
+    public ImageIcon voltearGifHorizontal(ImageIcon iconoOriginal) {
         int ancho = iconoOriginal.getIconWidth();
         int alto = iconoOriginal.getIconHeight();
 
@@ -95,71 +97,8 @@ public class Jardin extends javax.swing.JFrame {
 
     }
 
-    private void generadorDeMapa(String[][] mapa) {
-        int[][][] cordenadas = new int[mapa.length][mapa[0].length][2];
-        JPanel panelJardin = new JPanel();
-
-        int columna = mapa[0].length;
-        int fila = mapa.length;
-        int anchoTotal = columna * 80;
-        int altoTotal = fila * 100;
-
-        panelJardin.setPreferredSize(new Dimension(anchoTotal, altoTotal));
-        panelJardin.setLayout(new GridLayout(fila, columna));
-        for (int i = 0; i < fila; i++) {
-            for (int j = 0; j < columna; j++) {
-
-                JPanel panelJardinCasilla = null;
-                if ((i + j) % 2 == 0) {
-                    panelJardinCasilla = new javax.swing.JPanel() {
-                        @Override
-                        protected void paintComponent(java.awt.Graphics g) {
-                            super.paintComponent(g);
-
-                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaA.png"))
-                                    .getImage();
-                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                        }
-                    };
-                } else {
-                    panelJardinCasilla = new javax.swing.JPanel() {
-                        @Override
-                        protected void paintComponent(java.awt.Graphics g) {
-                            super.paintComponent(g);
-                            // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
-                            // proyecto)
-                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaB.png"))
-                                    .getImage();
-                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                        }
-                    };
-                }
-                panelJardinCasilla.setPreferredSize(new Dimension(80, 100));
-                panelJardinCasilla.setSize(80, 100);
-                panelJardin.add(panelJardinCasilla);
-                panelJardin.doLayout();
-                cordenadas[i][j][0] = panelJardinCasilla.getX();
-                cordenadas[i][j][1] = panelJardinCasilla.getY();
-            }
-        }
-        panelJardin.revalidate();
-        panelJardin.repaint();
-        Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
-        jardinLayer.setPreferredSize(dimDinamica);
-        panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
-        jardinLayer.add(panelJardin, Integer.valueOf(1));
-        jardinLayer.revalidate();
-        jardinLayer.repaint();
-
-        for (int[][] is : cordenadas) {
-            for (int[] is2 : is) {
-
-                System.out.println(is2[0] + " " + is2[1]);
-            }
-        }
-    }
-
     private void generadorDeMapaCords(String[][] mapa) {
+        ConstructorDePlantas plantas = new ConstructorDePlantas();
         cordenadas = new int[mapa.length][mapa[0].length][2];
         JPanel panelJardin = new JPanel();
 
@@ -220,12 +159,9 @@ public class Jardin extends javax.swing.JFrame {
         jardinLayer.revalidate();
         jardinLayer.repaint();
 
-        for (int[][] is : cordenadas) {
-            for (int[] is2 : is) {
+        mobimiento = plantas.constructorDePlantas(cordenadas, mapa, altoTotal, anchoTotal, this);
+        jardinLayer.add(mobimiento, Integer.valueOf(2));
 
-                System.out.println(is2[0] + " " + is2[1]);
-            }
-        }
     }
 
     /**
@@ -429,6 +365,10 @@ public class Jardin extends javax.swing.JFrame {
 
     public int[][][] getCordenadas() {
         return cordenadas;
+    }
+
+    public JPanel getMobimiento() {
+        return mobimiento;
     }
 
     private void pausaMenuMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_pausaMenuMouseClicked
