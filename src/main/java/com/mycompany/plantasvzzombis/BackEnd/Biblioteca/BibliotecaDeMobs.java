@@ -15,7 +15,7 @@ public class BibliotecaDeMobs {
         private final URL RUTA_DE_IMAGEN_PLANTA_PLANTA_CARNIVORA = getClass()
                         .getResource("/com/ricardo/Plantas/carnivora.gif");
         private final URL RUTA_DE_IMAGEN_PLANTA_PINCHOHIERBA = getClass()
-                        .getResource("/com/ricardo/Plantas/Pinchos.gif");
+                        .getResource("/com/ricardo/Plantas/Pinchos.png");
         private final URL RUTA_DE_IMAGEN_PLANTA_BIPETIDORA = getClass()
                         .getResource("/com/ricardo/Plantas/lanzaGuisantesDoble.gif");
 

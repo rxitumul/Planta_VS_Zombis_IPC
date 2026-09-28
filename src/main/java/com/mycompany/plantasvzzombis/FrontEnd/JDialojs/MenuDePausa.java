@@ -4,18 +4,19 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
+import java.awt.Color;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
-
-import java.awt.*;
+import com.mycompany.plantasvzzombis.BackEnd.MetodosStatic;
 
 /**
  *
  * @author ricardocastillo
  */
-public class MenuDePausa extends javax.swing.JDialog implements ImagenesTextos{
+public class MenuDePausa extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(MenuDePausa.class.getName());
@@ -42,8 +43,8 @@ public class MenuDePausa extends javax.swing.JDialog implements ImagenesTextos{
 
         setOpacity(1.0f);
         setLocationRelativeTo(null);
-        salirYGuardar.setIcon(setImagenes(122, 25, RUTA_DE_BOTON_SAILIR));
-        continuar.setIcon(setImagenes(122, 25, RUTA_DE_BOTON_CONTINUAR));
+        salirYGuardar.setIcon(MetodosStatic.setImagenes(122, 25, getClass().getResource(RUTA_DE_BOTON_SAILIR)));
+        continuar.setIcon(MetodosStatic.setImagenes(122, 25, getClass().getResource(RUTA_DE_BOTON_CONTINUAR)));
     }
 
     /**

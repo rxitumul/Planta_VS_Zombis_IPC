@@ -1,8 +1,5 @@
 package com.mycompany.plantasvzzombis.BackEnd.ConstructoresDeJardin;
 
-import java.io.IOException;
-import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +15,8 @@ public class ConstructorDePlantas {
             Jardin front) {
         JPanel panel = new JPanel();
         panel.setSize(tamañoAncho, tamañoAlto);
-        panel.setOpaque(true);
+        panel.setOpaque(false);
+        panel.setLayout(null);
         int x;
         int y;
         for (int i = 0; i < jardin.length; i++) {
@@ -29,66 +27,36 @@ public class ConstructorDePlantas {
                     x = cords[i][j][0];
                     y = cords[i][j][1];
                     JLabel planta = new JLabel();
+                    ImageIcon imagen = null;
                     switch (entidad) {
                         case "LANZAGUISANTES":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(
-                                            new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_LANZAGUISANTES())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen =  new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_LANZAGUISANTES());
                             break;
                         case "PATATAPUM":
-URL url = biblio.getRUTA_DE_IMAGEN_PLANTA_PATATPUM();
-
-System.out.println(url);
-                            try {
-                                System.out.println(url.openConnection().getContentType());
-                            } catch (IOException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_PATATPUM())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen = new ImageIcon( biblio.getRUTA_DE_IMAGEN_PLANTA_PATATPUM());
                             break;
                         case "HIELAGUISANTES":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(
-                                            new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_HIELAGUISANTES())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen = new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_HIELAGUISANTES());
                             break;
                         case "NUEZ":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(
-                                            new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_NUEZ_CASCAR_ARABIAS())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen = new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_NUEZ_CASCAR_ARABIAS());
                             break;
                         case "CARRONIVORA":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(
-                                            new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_PLANTA_CARNIVORA())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen = new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_PLANTA_CARNIVORA());
                             break;
                         case "PINCHOHIERBA":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(
-                                            new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_PINCHOHIERBA())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
+                            imagen = new ImageIcon( biblio.getRUTA_DE_IMAGEN_PLANTA_PINCHOHIERBA());
                             break;
                         case "BIPETIDORA":
-                            planta.setIcon(front
-                                    .voltearGifHorizontal(new ImageIcon(biblio.getRUTA_DE_IMAGEN_PLANTA_BIPETIDORA())));
-                            panel.add(planta);
-                            planta.setBounds(x, y, 80, 100);
-                            break;
-                        default:
+                            imagen = new ImageIcon( biblio.getRUTA_DE_IMAGEN_PLANTA_BIPETIDORA());
                             break;
                     }
+                    planta.setIcon(imagen);
+                    panel.add(planta);
+                    planta.setBounds(x, y, 80, 100);
+                    System.out.println("Entidad: " + entidad);
+                    System.out.println("Imagen: " + imagen);
+                    System.out.println("X: " + x + " Y: " + y);
                 }
             }
         }

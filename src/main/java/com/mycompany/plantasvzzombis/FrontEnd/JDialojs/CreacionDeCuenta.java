@@ -4,18 +4,23 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.mycompany.plantasvzzombis.BackEnd.MetodosStatic;
-import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
 
 /**
  *
  * @author ricardocastillo
  */
-public class CreacionDeCuenta extends javax.swing.JDialog implements ImagenesTextos{
+public class CreacionDeCuenta extends javax.swing.JDialog{
     private boolean valido = false;
     private final static String RUTA_DE_BOTON="/com/ricardo/Menus /Botones /Boton_CrearCuenta_Segundo.png";
     private String nombreUsuario;
@@ -32,7 +37,7 @@ public class CreacionDeCuenta extends javax.swing.JDialog implements ImagenesTex
         fondo.setOpaque(false);
         fondo.setBackground(new Color(0, 0, 0, 0));
         fondo.setDoubleBuffered(true);
-        creadorDeCuentaP.setIcon(setImagenes(150, 60, RUTA_DE_BOTON));
+        creadorDeCuentaP.setIcon(MetodosStatic.setImagenes(150, 60, getClass().getResource(RUTA_DE_BOTON)));
     }
 
     /**

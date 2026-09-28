@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import org.w3c.dom.events.MouseEvent;
+
 import com.mycompany.plantasvzzombis.BackEnd.ConstructoresDeJardin.ConstructorDePlantas;
 import com.mycompany.plantasvzzombis.FrontEnd.JDialojs.MenuDePausa;
 
@@ -63,22 +65,6 @@ public class Jardin extends javax.swing.JFrame {
         return new ImageIcon(imagenRedimencion);
     }
 
-    public ImageIcon voltearGifHorizontal(ImageIcon iconoOriginal) {
-        int ancho = iconoOriginal.getIconWidth();
-        int alto = iconoOriginal.getIconHeight();
-
-        // Crear una imagen temporal en memoria
-        BufferedImage imgBuffer = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = imgBuffer.createGraphics();
-
-        // Dibuja la imagen invertida horizontalmente (-ancho en X, ancho de escala
-        // negativo)
-        g2d.drawImage(iconoOriginal.getImage(), ancho, 0, 0, alto, 0, 0, ancho, alto, null);
-        g2d.dispose();
-
-        return new ImageIcon(imgBuffer);
-    }
-
     private void fondoPanelFondo(int ancho, int alto) {
 
         JPanel fondo = new JPanel() {
@@ -108,9 +94,10 @@ public class Jardin extends javax.swing.JFrame {
         int altoTotal = fila * 100;
         int y = 0;
 
-        panelJardin.setPreferredSize(new Dimension(anchoTotal, altoTotal));
-        panelJardin.setLayout(null);
         Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
+        panelJardin.setPreferredSize(dimDinamica);
+        panelJardin.setLayout(null);
+
         jardinLayer.setPreferredSize(dimDinamica);
         panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
         jardinLayer.add(panelJardin, Integer.valueOf(1));
@@ -161,6 +148,17 @@ public class Jardin extends javax.swing.JFrame {
 
         mobimiento = plantas.constructorDePlantas(cordenadas, mapa, altoTotal, anchoTotal, this);
         jardinLayer.add(mobimiento, Integer.valueOf(2));
+
+        JPanel eschucaDeMause = new JPanel();
+        eschucaDeMause.setSize(anchoTotal, altoTotal);
+        eschucaDeMause.setPreferredSize(dimDinamica);
+        eschucaDeMause.setOpaque(false);
+        eschucaDeMause.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelDeEschuchaUsuario(evt);
+            }
+        });
+        jardinLayer.add(eschucaDeMause, Integer.valueOf(3));
 
     }
 
@@ -401,6 +399,12 @@ public class Jardin extends javax.swing.JFrame {
     private void zombiMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_zombiMouseClicked
         System.out.println("cerebro");
     }// GEN-LAST:event_zombiMouseClicked
+
+    private void panelDeEschuchaUsuario(java.awt.event.MouseEvent evt) {
+        int x = evt.getX();
+        int y = evt.getY();
+        System.out.println("posicion del mause x:" + x + " y:" + y);
+    }
 
     /**
      * @param args the command line arguments

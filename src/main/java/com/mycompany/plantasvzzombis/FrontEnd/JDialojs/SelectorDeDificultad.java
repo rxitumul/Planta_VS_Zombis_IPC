@@ -6,15 +6,14 @@ package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
 import java.awt.Image;
 
-import javax.swing.*;
-
-import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author ricardocastillo
  */
-public class SelectorDeDificultad extends javax.swing.JDialog implements ImagenesTextos {
+public class SelectorDeDificultad extends javax.swing.JDialog  {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(SelectorDeDificultad.class.getName());

@@ -4,13 +4,13 @@
  */
 package com.mycompany.plantasvzzombis.FrontEnd.JDialojs;
 
-import com.mycompany.plantasvzzombis.FrontEnd.ImagenesTextos;
+import com.mycompany.plantasvzzombis.BackEnd.MetodosStatic;
 
 /**
  *
  * @author ricardocastillo
  */
-public class SelectorDeCuenta extends javax.swing.JDialog implements  ImagenesTextos{
+public class SelectorDeCuenta extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SelectorDeCuenta.class.getName());
     private final static String RUTA_DE_BOTON_CONTINUAR="/com/ricardo/Menus /Botones /Boton_Regresar_Segundo.png";
@@ -21,7 +21,7 @@ public class SelectorDeCuenta extends javax.swing.JDialog implements  ImagenesTe
     public SelectorDeCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Regresar.setIcon(setImagenes(122, 25, RUTA_DE_BOTON_CONTINUAR));
+        Regresar.setIcon(MetodosStatic.setImagenes(122, 25, getClass().getResource(RUTA_DE_BOTON_CONTINUAR)));
     }
 
     /**
