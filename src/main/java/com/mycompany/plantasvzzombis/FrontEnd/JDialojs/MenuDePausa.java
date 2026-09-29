@@ -43,8 +43,6 @@ public class MenuDePausa extends javax.swing.JDialog {
 
         setOpacity(1.0f);
         setLocationRelativeTo(null);
-        salirYGuardar.setIcon(MetodosStatic.setImagenes(122, 25, getClass().getResource(RUTA_DE_BOTON_SAILIR)));
-        continuar.setIcon(MetodosStatic.setImagenes(122, 25, getClass().getResource(RUTA_DE_BOTON_CONTINUAR)));
     }
 
     /**
@@ -67,8 +65,8 @@ public class MenuDePausa extends javax.swing.JDialog {
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        salirYGuardar = new javax.swing.JLabel();
-        continuar = new javax.swing.JLabel();
+        salirGuardar = new javax.swing.JButton();
+        continuar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -76,38 +74,31 @@ public class MenuDePausa extends javax.swing.JDialog {
 
         fondo.setBackground(new java.awt.Color(0, 204, 0));
 
-        salirYGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salirYGuardarMouseClicked(evt);
-            }
-        });
+        salirGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png"))); // NOI18N
+        salirGuardar.addActionListener(this::salirGuardarActionPerformed);
 
-        continuar.setBackground(new java.awt.Color(255, 255, 255));
-        continuar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                continuarMouseClicked(evt);
-            }
-        });
+        continuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png"))); // NOI18N
+        continuar.addActionListener(this::continuarActionPerformed);
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fondoLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(salirYGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                .addComponent(continuar)
-                .addGap(93, 93, 93))
+                .addGap(41, 41, 41)
+                .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fondoLayout.createSequentialGroup()
-                .addContainerGap(270, Short.MAX_VALUE)
-                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salirYGuardar)
-                    .addComponent(continuar))
-                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap(240, Short.MAX_VALUE)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         getContentPane().add(fondo, java.awt.BorderLayout.CENTER);
@@ -115,21 +106,23 @@ public class MenuDePausa extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void continuarMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_continuarMouseClicked
-        this.dispose();
-    }// GEN-LAST:event_continuarMouseClicked
+    private void salirGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirGuardarActionPerformed
+this.dispose();        
+// TODO add your handling code here:
+    }//GEN-LAST:event_salirGuardarActionPerformed
 
-    private void salirYGuardarMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_salirYGuardarMouseClicked
-        this.dispose();
-    }// GEN-LAST:event_salirYGuardarMouseClicked
+    private void continuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuarActionPerformed
+this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_continuarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel continuar;
+    private javax.swing.JButton continuar;
     private javax.swing.JPanel fondo;
-    private javax.swing.JLabel salirYGuardar;
+    private javax.swing.JButton salirGuardar;
     // End of variables declaration//GEN-END:variables
 }
