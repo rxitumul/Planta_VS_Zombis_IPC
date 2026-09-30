@@ -10,7 +10,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.mycompany.plantasvzzombis.BackEnd.MetodosStatic;
+import com.mycompany.plantasvzzombis.FrontEnd.Jardin;
 
 /**
  *
@@ -20,18 +20,21 @@ public class MenuDePausa extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(MenuDePausa.class.getName());
-    private final static String RUTA_DE_BOTON_SAILIR="/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png";
-    private final static String RUTA_DE_BOTON_CONTINUAR="/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png";
+    private final static String RUTA_DE_BOTON_SAILIR = "/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png";
+    private final static String RUTA_DE_BOTON_CONTINUAR = "/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png";
+
+    private Jardin front;
 
     /**
      * Creates new form MenuDepausa
      */
-    public MenuDePausa(java.awt.Frame parent, boolean modal) {
+    public MenuDePausa(java.awt.Frame parent, boolean modal, Jardin front) {
         super(parent, modal);
+        this.front = front;
         setUndecorated(true);
 
         setBackground(new Color(0, 0, 0, 0));
-        
+
         initComponents();
         ((JPanel) getContentPane()).setOpaque(false);
         getContentPane().setBackground(new Color(0, 0, 0, 0));
@@ -53,14 +56,16 @@ public class MenuDePausa extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fondo = new javax.swing.JPanel(){
+        fondo = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /pause_menu.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -74,47 +79,54 @@ public class MenuDePausa extends javax.swing.JDialog {
 
         fondo.setBackground(new java.awt.Color(0, 204, 0));
 
-        salirGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png"))); // NOI18N
+        salirGuardar.setIcon(new javax.swing.ImageIcon(
+                getClass().getResource("/com/ricardo/Menus /Botones /Botno_Continuar_Segundo.png"))); // NOI18N
         salirGuardar.addActionListener(this::salirGuardarActionPerformed);
 
-        continuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png"))); // NOI18N
+        continuar.setIcon(new javax.swing.ImageIcon(
+                getClass().getResource("/com/ricardo/Menus /Botones /Boton_SalirYGuardar_Segundo.png"))); // NOI18N
         continuar.addActionListener(this::continuarActionPerformed);
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
-            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fondoLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
-        );
+                fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(fondoLayout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 129,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56,
+                                        Short.MAX_VALUE)
+                                .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 128,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)));
         fondoLayout.setVerticalGroup(
-            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
-                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
+                fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                                .addContainerGap(240, Short.MAX_VALUE)
+                                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(salirGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)));
 
         getContentPane().add(fondo, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void salirGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirGuardarActionPerformed
-this.dispose();        
-// TODO add your handling code here:
-    }//GEN-LAST:event_salirGuardarActionPerformed
-
-    private void continuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuarActionPerformed
-this.dispose();
+    private void salirGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salirGuardarActionPerformed
+        front.setPlay();
+        this.dispose();
         // TODO add your handling code here:
-    }//GEN-LAST:event_continuarActionPerformed
+    }// GEN-LAST:event_salirGuardarActionPerformed
+
+    private void continuarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_continuarActionPerformed
+        
+        this.dispose();
+        // TODO add your handling code here:
+    }// GEN-LAST:event_continuarActionPerformed
 
     /**
      * @param args the command line arguments

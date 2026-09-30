@@ -24,6 +24,7 @@ public class MenuDeJuego extends javax.swing.JFrame {
     private String nombreArchivo;
     private String nombreJardin;
     private CargadorDeArchivo cargador = new CargadorDeArchivo();
+    private int cantidadDeCerebros;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(MenuDeJuego.class.getName());
@@ -61,14 +62,16 @@ public class MenuDeJuego extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel(){
+        jPanel1 = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /menuInicio.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -77,11 +80,12 @@ public class MenuDeJuego extends javax.swing.JFrame {
         estadisticas = new javax.swing.JButton();
         partidaGuardada = new javax.swing.JButton();
         nuevaPartida = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel(){
+        jPanel2 = new javax.swing.JPanel() {
             @Override
             protected void paintComponent(java.awt.Graphics g) {
                 super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu proyecto)
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
                 Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /FondoMadera.png")).getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -90,16 +94,20 @@ public class MenuDeJuego extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Salir.png"))); // NOI18N
+        salir.setIcon(
+                new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Salir.png"))); // NOI18N
         salir.addActionListener(this::salirActionPerformed);
 
-        estadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_Estadisticas.png"))); // NOI18N
+        estadisticas.setIcon(new javax.swing.ImageIcon(
+                getClass().getResource("/com/ricardo/Menus /Botones /Boton_Estadisticas.png"))); // NOI18N
         estadisticas.addActionListener(this::estadisticasActionPerformed);
 
-        partidaGuardada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_PartidaGuardada.png"))); // NOI18N
+        partidaGuardada.setIcon(new javax.swing.ImageIcon(
+                getClass().getResource("/com/ricardo/Menus /Botones /Boton_PartidaGuardada.png"))); // NOI18N
         partidaGuardada.addActionListener(this::partidaGuardadaActionPerformed);
 
-        nuevaPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ricardo/Menus /Botones /Boton_NuevaPartida.png"))); // NOI18N
+        nuevaPartida.setIcon(new javax.swing.ImageIcon(
+                getClass().getResource("/com/ricardo/Menus /Botones /Boton_NuevaPartida.png"))); // NOI18N
         nuevaPartida.addActionListener(this::nuevaPartidaActionPerformed);
 
         jPanel2.setOpaque(false);
@@ -111,52 +119,56 @@ public class MenuDeJuego extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(nombreCuentaJLable, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addContainerGap(21, Short.MAX_VALUE)
+                                .addComponent(nombreCuentaJLable, javax.swing.GroupLayout.PREFERRED_SIZE, 149,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)));
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nombreCuentaJLable)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(nombreCuentaJLable)
+                                .addContainerGap(9, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(partidaGuardada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nuevaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(estadisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(387, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(139, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(partidaGuardada, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(nuevaPartida, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(estadisticas, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 211,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(387, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(nuevaPartida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(partidaGuardada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(estadisticas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(salir)
-                .addContainerGap(74, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(nuevaPartida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(partidaGuardada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(estadisticas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salir)
+                                .addContainerGap(74, Short.MAX_VALUE)));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -179,10 +191,11 @@ public class MenuDeJuego extends javax.swing.JFrame {
                 nombreArchivo = archivo.getName();
                 nombreJardin = archivo.getName();
                 cargador.cargadorDeJardin(archivo);
-                SelectorDeDificultad dificultad= new SelectorDeDificultad(this, rootPaneCheckingEnabled);
+                SelectorDeDificultad dificultad = new SelectorDeDificultad(this, rootPaneCheckingEnabled, this);
                 dificultad.setVisible(true);
-                Jardin jardin = new Jardin(cargador.getCerebrosIniciales(), cargador.getCerebrosIniciales(),
+                Jardin jardin = new Jardin(cargador.getCerebrosIniciales(), cargador.getDuracionSegundos(),
                         cargador.getJardin());
+                        jardin.setDificultad(cantidadDeCerebros);
                 jardin.setVisible(true);
                 this.setVisible(false);
             }
@@ -214,4 +227,8 @@ public class MenuDeJuego extends javax.swing.JFrame {
     private javax.swing.JButton partidaGuardada;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
+
+    public void setDificultad(int cantidadDeCerebros) {
+        this.cantidadDeCerebros = cantidadDeCerebros;
+    }
 }

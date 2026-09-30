@@ -2,6 +2,8 @@ package com.mycompany.plantasvzzombis.BackEnd.Biblioteca;
 
 import java.net.URL;
 
+import javax.swing.JLabel;
+
 import com.mycompany.plantasvzzombis.BackEnd.Entidades.ZombisPadre;
 import com.mycompany.plantasvzzombis.BackEnd.Entidades.Zombis.ZombiBailonVersionMichel_0;
 import com.mycompany.plantasvzzombis.BackEnd.Entidades.Zombis.ZombiCaracono_2;
@@ -65,6 +67,36 @@ public class BibliotecaDeMobs {
 
         public URL getRUTA_DE_IMAGEN_PLANTA_PLANTA_CARNIVORA() {
                 return RUTA_DE_IMAGEN_PLANTA_PLANTA_CARNIVORA;
+        }
+
+        public ZombisPadre creadordezombi(int y, int tipo) {
+                int posiciony = y / 100;
+                posiciony = posiciony * 100;
+
+                switch (tipo) {
+                        case 0:
+                                return new ZombiBailonVersionMichel_0(-70, posiciony, new JLabel(), 150, 15, 150,
+                                                0.8);
+                        case 1:
+                                return new Zombie_1(0, posiciony, new JLabel(), 100, 15, 50, 1);
+                        case 2:
+                                return new ZombiCaracono_2(0, posiciony, new JLabel(), 200, 20, 100,
+                                                1);
+                        case 3:
+                                return new ZombiDeportista_3(-70, posiciony, new JLabel(), 250, 10, 150,
+                                                2);
+
+                        case 4:
+
+                                return new ZombiSaltadorGarrocha_4(-70, posiciony, new JLabel(), 120, 15, 100,
+                                                1.7);
+                        case 5:
+
+                                return new Zombistein_5(-70, posiciony, new JLabel(), 300, 999999999, 350,
+                                                0.7);
+
+                }
+                return null;
         }
 
         public ZombisPadre[] getZombisPreferencias() {

@@ -19,4 +19,8 @@ public class ZombisPadre extends Entidad{
     public int getCosto() {
         return costo;
     }
+
+    public String getNombre() {
+return  "sombis";
+    }
 }

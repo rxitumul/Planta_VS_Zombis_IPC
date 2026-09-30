@@ -16,6 +16,9 @@ import javax.swing.JToggleButton;
 import com.mycompany.plantasvzzombis.BackEnd.Biblioteca.BibliotecaDeMobs;
 import com.mycompany.plantasvzzombis.BackEnd.ConstructoresDeJardin.ConstructorDePlantas;
 import com.mycompany.plantasvzzombis.BackEnd.ControlDeJuego.CerebrosTiempo;
+import com.mycompany.plantasvzzombis.BackEnd.ControlDeJuego.HiloDeCerbros;
+import com.mycompany.plantasvzzombis.BackEnd.ControlDeJuego.TiempoDePartida;
+import com.mycompany.plantasvzzombis.BackEnd.Entidades.ZombisPadre;
 import com.mycompany.plantasvzzombis.FrontEnd.JDialojs.MenuDePausa;
 
 /**
@@ -53,6 +56,10 @@ public class Jardin extends javax.swing.JFrame {
     private BibliotecaDeMobs bilbio = new BibliotecaDeMobs();
     private int columna;
     private int fila;
+    private int altoTotal;
+    private int anchoTotal;
+    private TiempoDePartida tiempoDePartida;
+    private int selecionZombi = -1;
 
     /**
      * Creates new form Jardin
@@ -63,6 +70,8 @@ public class Jardin extends javax.swing.JFrame {
         setSize(1000, 900);
         contadorDeCerebros.setText(String.valueOf(cerrebros));
         contadorTiempo.setText(String.valueOf(duracion));
+        tiempoDePartida = new TiempoDePartida(duracion, this);
+        tiempoDePartida.start();
         fondoPanelFondo(100000, 10000000);
         generadorDeMapaCords(jardin);
         jardinPadre.revalidate();
@@ -76,162 +85,6 @@ public class Jardin extends javax.swing.JFrame {
         cerebrosTiempo = new CerebrosTiempo(cerrebros, fila, columna, bilbio.getZombisPreferencias(), zombis, this);
         revalidate();
         repaint();
-    }
-
-    private void esteblecesdorDeBotonesZombis() {
-
-        grupoDeZombisButtonGroup.add(zombi);
-        zombi.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_1));
-        zombi.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_1_DISABLE));
-        zombis[1] = zombi;
-        grupoDeZombisButtonGroup.add(zombiBailónVersionMichel);
-        zombiBailónVersionMichel.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_0));
-        zombiBailónVersionMichel.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_0_DISABLE));
-        zombis[0] = zombiBailónVersionMichel;
-        grupoDeZombisButtonGroup.add(zombiCaracono);
-        zombiCaracono.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_2));
-        zombiCaracono.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_2_DISABLE));
-        zombis[2] = zombiCaracono;
-        grupoDeZombisButtonGroup.add(zombiDeportista);
-        zombiDeportista.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_3));
-        zombiDeportista.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_3_DISABLE));
-        zombis[3] = zombiDeportista;
-        grupoDeZombisButtonGroup.add(zombiSaltadorGarrocha);
-        zombiSaltadorGarrocha.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_4));
-        zombiSaltadorGarrocha.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_4_DISABLE));
-        zombis[4] = zombiSaltadorGarrocha;
-        grupoDeZombisButtonGroup.add(zombistein);
-        zombistein.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_5));
-        zombistein.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_5_DISABLE));
-        zombis[5] = zombistein;
-
-    }
-
-    public JButton agregarcerebro(int x, int y, CerebrosTiempo back) {
-
-        JButton cerebro = new JButton();
-        cerebro.setBorderPainted(false);
-        cerebro.setContentAreaFilled(false);
-        cerebro.setFocusPainted(false);
-        cerebro.setIcon(new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/cerebroAparicion.png")));
-        zombiDeportista.addActionListener(e -> {
-            back.interrupt();
-        });
-        cerebro.setBounds(x, y, 100, 100);
-        jardinLayer.add(cerebro, Integer.valueOf(4));
-        return cerebro;
-    }
-
-    public boolean eliminadorDeBoton(JButton cerebro) {
-        jardinLayer.remove(cerebro);
-        jardinLayer.revalidate();
-        jardinLayer.repaint();
-        return true;
-
-    }
-
-    private ImageIcon setImagenes(int dimencionW, int dimencionH, String ruta) {
-        ImageIcon tarjetaDeZombi = new ImageIcon(getClass().getResource(ruta));
-        Image imagenRedimencion = tarjetaDeZombi.getImage().getScaledInstance(dimencionW, dimencionH,
-                Image.SCALE_SMOOTH);
-        return new ImageIcon(imagenRedimencion);
-    }
-
-    private void fondoPanelFondo(int ancho, int alto) {
-
-        JPanel fondo = new JPanel() {
-            @Override
-            protected void paintComponent(java.awt.Graphics g) {
-                super.paintComponent(g);
-                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
-                // proyecto)
-                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Fondo.png")).getImage();
-                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-
-        fondo.setSize(ancho, alto);
-        jardinLayer.add(fondo, Integer.valueOf(0));
-
-    }
-
-    private void generadorDeMapaCords(String[][] mapa) {
-        ConstructorDePlantas plantas = new ConstructorDePlantas();
-        cordenadas = new int[mapa.length][mapa[0].length][2];
-        JPanel panelJardin = new JPanel();
-
-        int columna = mapa[0].length;
-        int fila = mapa.length;
-        int anchoTotal = columna * 80;
-        int altoTotal = fila * 100;
-        int y = 0;
-
-        Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
-        panelJardin.setPreferredSize(dimDinamica);
-        panelJardin.setLayout(null);
-
-        jardinLayer.setPreferredSize(dimDinamica);
-        panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
-        jardinLayer.add(panelJardin, Integer.valueOf(1));
-        for (int i = 0; i < fila; i++) {
-            int x = 0;
-            for (int j = 0; j < columna; j++) {
-
-                JPanel panelJardinCasilla = null;
-                if ((i + j) % 2 == 0) {
-                    panelJardinCasilla = new javax.swing.JPanel() {
-                        @Override
-                        protected void paintComponent(java.awt.Graphics g) {
-                            super.paintComponent(g);
-
-                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaA.png"))
-                                    .getImage();
-                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                        }
-                    };
-                } else {
-                    panelJardinCasilla = new javax.swing.JPanel() {
-                        @Override
-                        protected void paintComponent(java.awt.Graphics g) {
-                            super.paintComponent(g);
-                            // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
-                            // proyecto)
-                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaB.png"))
-                                    .getImage();
-                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                        }
-                    };
-                }
-
-                panelJardin.add(panelJardinCasilla);
-                panelJardinCasilla.setBounds(x, y, 80, 100);
-                // panelJardinCasilla.setPreferredSize(new Dimension(80, 100));
-                cordenadas[i][j][0] = x;
-                cordenadas[i][j][1] = y;
-                x = 80 + x;
-                panelJardin.doLayout();
-            }
-            y = 100 + y;
-        }
-        panelJardin.revalidate();
-        panelJardin.repaint();
-        jardinLayer.revalidate();
-        jardinLayer.repaint();
-
-        mobimiento = plantas.constructorDePlantas(cordenadas, mapa, altoTotal, anchoTotal, this);
-        jardinLayer.add(mobimiento, Integer.valueOf(2));
-
-        JPanel eschucaDeMause = new JPanel();
-        eschucaDeMause.setSize(anchoTotal, altoTotal);
-        eschucaDeMause.setPreferredSize(dimDinamica);
-        eschucaDeMause.setOpaque(false);
-        eschucaDeMause.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelDeEschuchaUsuario(evt);
-            }
-        });
-        jardinLayer.add(eschucaDeMause, Integer.valueOf(3));
-
     }
 
     /**
@@ -450,32 +303,45 @@ public class Jardin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void zombiActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombiActionPerformed
-        // TODO add your handling code here:
+        selecionZombi = 1;
     }// GEN-LAST:event_zombiActionPerformed
 
     private void zombiBailónVersionMichelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombiBailónVersionMichelActionPerformed
         // TODO add your handling code here:
+        selecionZombi = 0;
     }// GEN-LAST:event_zombiBailónVersionMichelActionPerformed
 
     private void zombiCaraconoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombiCaraconoActionPerformed
         // TODO add your handling code here:
+        selecionZombi = 2;
     }// GEN-LAST:event_zombiCaraconoActionPerformed
 
     private void zombiDeportistaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombiDeportistaActionPerformed
         // TODO add your handling code here:
+        selecionZombi = 3;
     }// GEN-LAST:event_zombiDeportistaActionPerformed
 
     private void zombiSaltadorGarrochaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombiSaltadorGarrochaActionPerformed
         // TODO add your handling code here:
+        selecionZombi = 4;
     }// GEN-LAST:event_zombiSaltadorGarrochaActionPerformed
 
     private void zombisteinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zombisteinActionPerformed
         // TODO add your handling code here:
+        selecionZombi = 5;
     }// GEN-LAST:event_zombisteinActionPerformed
 
     private void pausaMenuActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pausaMenuActionPerformed
         // TODO add your handling code here:
-        MenuDePausa pausa = new MenuDePausa(this, true);
+
+        for (int i = 0; i < hiloCerebros.length; i++) {
+
+            hiloCerebros[i].setPausa(true);
+            hiloCerebros[i].interrupt();
+        }
+        tiempoDePartida.setPausado(true);
+
+        MenuDePausa pausa = new MenuDePausa(this, true, this);
         pausa.setVisible(true);
     }// GEN-LAST:event_pausaMenuActionPerformed
 
@@ -491,6 +357,15 @@ public class Jardin extends javax.swing.JFrame {
         int x = evt.getX();
         int y = evt.getY();
         System.out.println("posicion del mause x:" + x + " y:" + y);
+        if (selecionZombi != -1) {
+            ZombisPadre zombi = bilbio.creadordezombi(y, selecionZombi);
+            selecionZombi = -1;
+            cerebrosTiempo.sumadorDeCerebros((zombi.getCosto()) * -1, zombis);
+            System.out.println(zombi.getNombre());
+            grupoDeZombisButtonGroup.clearSelection();
+            contadorDeCerebros.setText(String.valueOf(cerebrosTiempo.getCantidadDeCerebros()));
+        }
+
     }
 
     /**
@@ -521,4 +396,201 @@ public class Jardin extends javax.swing.JFrame {
     private javax.swing.JToggleButton zombiSaltadorGarrocha;
     private javax.swing.JToggleButton zombistein;
     // End of variables declaration//GEN-END:variables
+
+    private HiloDeCerbros[] hiloCerebros;
+
+    public void setDificultad(int cantidadDeCerebros) {
+        hiloCerebros = new HiloDeCerbros[cantidadDeCerebros];
+        for (int i = 0; i < hiloCerebros.length; i++) {
+            hiloCerebros[i] = new HiloDeCerbros(this, anchoTotal, altoTotal);
+        }
+        for (HiloDeCerbros hiloDeCerbrosItem : hiloCerebros) {
+            hiloDeCerbrosItem.start();
+        }
+    }
+
+    public void cambioDeTiempo(int tiempo) {
+        contadorTiempo.setText(String.valueOf(tiempo));
+    }
+
+    private void esteblecesdorDeBotonesZombis() {
+
+        grupoDeZombisButtonGroup.add(zombi);
+        zombi.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_1));
+        zombi.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_1_DISABLE));
+        zombis[1] = zombi;
+        grupoDeZombisButtonGroup.add(zombiBailónVersionMichel);
+        zombiBailónVersionMichel.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_0));
+        zombiBailónVersionMichel.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_0_DISABLE));
+        zombis[0] = zombiBailónVersionMichel;
+        grupoDeZombisButtonGroup.add(zombiCaracono);
+        zombiCaracono.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_2));
+        zombiCaracono.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_2_DISABLE));
+        zombis[2] = zombiCaracono;
+        grupoDeZombisButtonGroup.add(zombiDeportista);
+        zombiDeportista.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_3));
+        zombiDeportista.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_3_DISABLE));
+        zombis[3] = zombiDeportista;
+        grupoDeZombisButtonGroup.add(zombiSaltadorGarrocha);
+        zombiSaltadorGarrocha.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_4));
+        zombiSaltadorGarrocha.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_4_DISABLE));
+        zombis[4] = zombiSaltadorGarrocha;
+        grupoDeZombisButtonGroup.add(zombistein);
+        zombistein.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_5));
+        zombistein.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_5_DISABLE));
+        zombis[5] = zombistein;
+
+    }
+
+    public JButton agregarcerebro(int x, int y, HiloDeCerbros back) {
+
+        JButton cerebro = new JButton();
+        cerebro.setBorderPainted(false);
+        cerebro.setContentAreaFilled(false);
+        cerebro.setFocusPainted(false);
+        cerebro.setIcon(new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/cerebroAparicion.png")));
+        cerebro.addActionListener(e -> {
+            recolectarCerebro(cerebro, back);
+        });
+        cerebro.setBounds(x, y, 100, 100);
+        jardinLayer.add(cerebro, Integer.valueOf(4));
+        jardinLayer.revalidate();
+        jardinLayer.repaint();
+        return cerebro;
+    }
+
+    public void recolectarCerebro(JButton cerebro, HiloDeCerbros back) {
+        eliminadorDeBoton(cerebro);
+        if (cerebrosTiempo != null) {
+            cerebrosTiempo.sumadorDeCerebros(25, zombis);
+            contadorDeCerebros.setText(String.valueOf(cerebrosTiempo.getCantidadDeCerebros()));
+        }
+        if (back != null) {
+            back.interrupt();
+        }
+    }
+
+    public boolean eliminadorDeBoton(JButton cerebro) {
+        if (cerebro != null) {
+            jardinLayer.remove(cerebro);
+            jardinLayer.revalidate();
+            jardinLayer.repaint();
+        }
+        return true;
+
+    }
+
+    private ImageIcon setImagenes(int dimencionW, int dimencionH, String ruta) {
+        ImageIcon tarjetaDeZombi = new ImageIcon(getClass().getResource(ruta));
+        Image imagenRedimencion = tarjetaDeZombi.getImage().getScaledInstance(dimencionW, dimencionH,
+                Image.SCALE_SMOOTH);
+        return new ImageIcon(imagenRedimencion);
+    }
+
+    private void fondoPanelFondo(int ancho, int alto) {
+
+        JPanel fondo = new JPanel() {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                // proyecto)
+                Image img = new ImageIcon(getClass().getResource("/com/ricardo/Menus /Fondo.png")).getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        fondo.setSize(ancho, alto);
+        jardinLayer.add(fondo, Integer.valueOf(0));
+
+    }
+
+    private void generadorDeMapaCords(String[][] mapa) {
+        ConstructorDePlantas plantas = new ConstructorDePlantas();
+        cordenadas = new int[mapa.length][mapa[0].length][2];
+        JPanel panelJardin = new JPanel();
+
+        this.columna = mapa[0].length;
+        this.fila = mapa.length;
+        anchoTotal = columna * 80;
+        altoTotal = fila * 100;
+        int y = 0;
+
+        Dimension dimDinamica = new Dimension(anchoTotal, altoTotal);
+        panelJardin.setPreferredSize(dimDinamica);
+        panelJardin.setLayout(null);
+
+        jardinLayer.setPreferredSize(dimDinamica);
+        panelJardin.setBounds(0, 0, anchoTotal, altoTotal);
+        jardinLayer.add(panelJardin, Integer.valueOf(1));
+        for (int i = 0; i < fila; i++) {
+            int x = 0;
+            for (int j = 0; j < columna; j++) {
+
+                JPanel panelJardinCasilla = null;
+                if ((i + j) % 2 == 0) {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaA.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                } else {
+                    panelJardinCasilla = new javax.swing.JPanel() {
+
+                        @Override
+                        protected void paintComponent(java.awt.Graphics g) {
+                            super.paintComponent(g);
+                            // Carga tu imagen (asegúrate de tenerla en la carpeta de recursos de tu
+                            // proyecto)
+                            Image img = new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/casillaB.png"))
+                                    .getImage();
+                            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                        }
+                    };
+                }
+
+                panelJardin.add(panelJardinCasilla);
+                panelJardinCasilla.setBounds(x, y, 80, 100);
+                // panelJardinCasilla.setPreferredSize(new Dimension(80, 100));
+                cordenadas[i][j][0] = x;
+                cordenadas[i][j][1] = y;
+                x = 80 + x;
+                panelJardin.doLayout();
+            }
+            y = 100 + y;
+        }
+        panelJardin.revalidate();
+        panelJardin.repaint();
+        jardinLayer.revalidate();
+        jardinLayer.repaint();
+
+        mobimiento = plantas.constructorDePlantas(cordenadas, mapa, altoTotal, anchoTotal, this);
+        jardinLayer.add(mobimiento, Integer.valueOf(2));
+
+        JPanel eschucaDeMause = new JPanel();
+        eschucaDeMause.setSize(anchoTotal, altoTotal);
+        eschucaDeMause.setPreferredSize(dimDinamica);
+        eschucaDeMause.setOpaque(false);
+        eschucaDeMause.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelDeEschuchaUsuario(evt);
+            }
+        });
+        jardinLayer.add(eschucaDeMause, Integer.valueOf(3));
+
+    }
+
+    public void setPlay() {
+
+        for (int i = 0; i < hiloCerebros.length; i++) {
+            hiloCerebros[i].setPausa(false);
+        }
+        tiempoDePartida.setPausado(false);
+    }
+
 }
