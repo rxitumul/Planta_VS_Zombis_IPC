@@ -9,6 +9,7 @@ import java.awt.Image;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -72,7 +73,7 @@ public class Jardin extends javax.swing.JFrame {
         pausaMenu.setRolloverIcon(iconoHover);
         pausaMenu.setRolloverEnabled(true);
         esteblecesdorDeBotonesZombis();
-        cerebrosTiempo = new CerebrosTiempo(cerrebros, fila, columna, bilbio.getZombisPreferencias(), zombis);
+        cerebrosTiempo = new CerebrosTiempo(cerrebros, fila, columna, bilbio.getZombisPreferencias(), zombis, this);
         revalidate();
         repaint();
     }
@@ -103,6 +104,29 @@ public class Jardin extends javax.swing.JFrame {
         zombistein.setSelectedIcon(setImagenes(91, 56, RUTA_ZOMBI_5));
         zombistein.setDisabledIcon(setImagenes(91, 56, RUTA_ZOMBI_5_DISABLE));
         zombis[5] = zombistein;
+
+    }
+
+    public JButton agregarcerebro(int x, int y, CerebrosTiempo back) {
+
+        JButton cerebro = new JButton();
+        cerebro.setBorderPainted(false);
+        cerebro.setContentAreaFilled(false);
+        cerebro.setFocusPainted(false);
+        cerebro.setIcon(new ImageIcon(getClass().getResource("/com/ricardo/Variaciones/cerebroAparicion.png")));
+        zombiDeportista.addActionListener(e -> {
+            back.interrupt();
+        });
+        cerebro.setBounds(x, y, 100, 100);
+        jardinLayer.add(cerebro, Integer.valueOf(4));
+        return cerebro;
+    }
+
+    public boolean eliminadorDeBoton(JButton cerebro) {
+        jardinLayer.remove(cerebro);
+        jardinLayer.revalidate();
+        jardinLayer.repaint();
+        return true;
 
     }
 
